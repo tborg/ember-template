@@ -18,7 +18,7 @@ class HandlebarsFilter < Rake::Pipeline::Filter
 end
 
 output "public/application"
-input "ember-skeleton" do
+input "lib" do
 
   match "templates/*.handlebars" do
     filter HandlebarsFilter
@@ -33,12 +33,16 @@ input "ember-skeleton" do
     concat 'application.models.js'
   end
 
-  match 'index.js' do
+  match 'views/*.js' do
+    concat 'application.views.js'
+  end
+
+  match 'app.js' do
     concat 'application.app.js'
   end
 
   match "*.js" do
-      concat ["application.templates.js", "application.app.js", "application.models.js", "application.controllers.js"], "application.js"
+      concat ["application.templates.js", "application.app.js", "application.models.js", "application.controllers.js", "application.views.js"], "application.js"
   end
 
   # Stylesheets
